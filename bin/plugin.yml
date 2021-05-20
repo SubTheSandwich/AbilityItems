@@ -1,0 +1,8 @@
+name: cAbilities
+description: An ability plugin.
+main: me.sub.abilitys.Main.Main
+version: SNAPSHOT-1.0
+authors: [Sub]
+commands:
+   ability:
+      description: Ability command.
