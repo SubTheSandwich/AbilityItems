@@ -11,12 +11,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.sub.abilitys.Commands.AbilityCommand;
 import me.sub.abilitys.Events.UseAbility;
 import me.sub.abilitys.Files.Abilities;
+import me.sub.abilitys.Files.Players;
 
 public class Main extends JavaPlugin {
 	
 	public HashMap<Player, Double> firework_cooldown = new HashMap<Player, Double>();
 	public HashMap<Player, Double> cooldown = new HashMap<Player, Double>();
 	public HashMap<Player, Double> beserk_cooldown = new HashMap<Player, Double>();
+	public HashMap<Player, Double> bard_cooldown = new HashMap<Player, Double>();
 	private static Main instance;
 
     public Main() {
@@ -51,6 +53,8 @@ public class Main extends JavaPlugin {
 	private void files() {
 		Abilities.setup();
 		
+		ArrayList<String> list3 = new ArrayList<String>();
+		list3.add("INCREASE_DAMAGE"); list3.add("DAMAGE_RESISTANCE");
 		ArrayList<String> list2 = new ArrayList<String>();
 		list2.add("INCREASE_DAMAGE"); list2.add("DAMAGE_RESISTANCE");
 		ArrayList<String> list = new ArrayList<String>();
@@ -73,13 +77,31 @@ public class Main extends JavaPlugin {
 		Abilities.get().addDefault("Abilities.firework.Identity", "FIREWORK");
 		Abilities.get().addDefault("Abilities.firework.displayName", "Firework");
 		
+		Abilities.get().addDefault("Abilities.portbard.Item", "MONSTER_EGG");
+		Abilities.get().addDefault("Abilities.portbard.Byte", (byte) 61);
+		Abilities.get().addDefault("Abilities.portbard.Cooldown", 120);
+		Abilities.get().addDefault("Abilities.portbard.Name", "&dPortable Bard &7(Right Click)");
+		Abilities.get().addDefault("Abilities.portbard.Identity", "PORTBARD");
+		Abilities.get().addDefault("Abilities.portbard.displayName", "Portable Bard");
+		
 		for (String s : list2) {
 			Abilities.get().addDefault("Abilities.beserk.Effects." + list2.indexOf(s) + ".Effect", s);
 			Abilities.get().addDefault("Abilities.beserk.Effects." + list2.indexOf(s) + ".Time", 10);
 			Abilities.get().addDefault("Abilities.beserk.Effects." + list2.indexOf(s) + ".Power", 1);
 		}
+		
+		
+		for (String s : list3) {
+			Abilities.get().addDefault("Abilities.portbard.Effects." + list2.indexOf(s) + ".Effect", s);
+			Abilities.get().addDefault("Abilities.portbard.Effects." + list2.indexOf(s) + ".Time", 5);
+			Abilities.get().addDefault("Abilities.portbard.Effects." + list2.indexOf(s) + ".Power", 1);
+		}
 		Abilities.get().options().copyDefaults(true);
 		Abilities.save();
+		
+		
+		Players.setup();
+		Players.save();
 	}
 
 }
